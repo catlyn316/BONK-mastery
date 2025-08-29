@@ -365,8 +365,8 @@ autoAbilityBtn.MouseButton1Click:Connect(function()
                     pcall(function()
                         game:GetService("ReplicatedStorage").BONK:FireServer()
                     end)
-                    -- 等待8秒
-                    task.wait(8)
+                    -- 等待10秒
+                    task.wait(10)
                     
                 elseif bonkMode == "槌後打" then
                     -- 槌後打模式：檢測15單位內有人才使用能力
@@ -400,8 +400,8 @@ autoAbilityBtn.MouseButton1Click:Connect(function()
                                         end
                                     end)
                                     
-                                    -- 等待8秒後再次檢測
-                                    task.wait(8)
+                                    -- 等待10秒後再次檢測
+                                    task.wait(10)
                                     break
                                 end
                             end
