@@ -4,7 +4,7 @@ local Workspace = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer
 
 -- 儲存自定義名稱
-local savedName = "catlyn" -- 修正：移除了 text 變數
+local savedName = "catlyn"
 
 -- 修改名稱標籤的函數
 local function changeNametag()
@@ -32,9 +32,8 @@ changeNametag()
 
 -- 監聽角色重生事件，重生後重新應用名稱
 LocalPlayer.CharacterAdded:Connect(function(character)
-    -- 等待角色完全載入
     character:WaitForChild("Head", 10)
-    wait(0.5) -- 等待名稱標籤系統初始化
+    wait(0.5)
     changeNametag()
 end)
 
@@ -42,7 +41,7 @@ end)
 local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 ScreenGui.Name = "MaolingHub"
 
--- 修正：主框架樣式
+-- 主框架樣式
 local Frame = Instance.new("Frame", ScreenGui)
 Frame.Size = UDim2.new(0, 450, 0, 350)
 Frame.Position = UDim2.new(0.5, -225, 0.5, -175)
@@ -67,10 +66,10 @@ stroke.Transparency = 0.5
 
 Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 15)
 
--- 修正：標題樣式
+-- 標題樣式
 local Title = Instance.new("TextLabel", Frame)
 Title.Size = UDim2.new(1, -80, 0, 50)
-Title.Position = UDim2.new(0, 15, 0, 0)  -- 往上移動5像素原為5
+Title.Position = UDim2.new(0, 15, 0, 0)
 Title.BackgroundTransparency = 1
 Title.Text = "✨ 貓玲的腳本區 ✨BONK精通"
 Title.Font = Enum.Font.GothamBold
@@ -84,7 +83,7 @@ titleStroke.Color = Color3.fromRGB(100, 150, 255)
 titleStroke.Thickness = 1
 titleStroke.Transparency = 0.3
 
--- 修正：關閉按鈕樣式和功能
+-- 關閉按鈕樣式和功能
 local Close = Instance.new("TextButton", Frame)
 Close.Size = UDim2.new(0, 35, 0, 35)
 Close.Position = UDim2.new(1, -40, 0, 8)
@@ -104,13 +103,13 @@ closeGradient.Color = ColorSequence.new{
 
 Instance.new("UICorner", Close).CornerRadius = UDim.new(0, 8)
 
--- 修正：關閉按鈕功能
+-- 關閉按鈕功能
 Close.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
-    _G.maolingHubLoaded = false -- 重置載入狀態
+    _G.maolingHubLoaded = false
 end)
 
--- 修正：最小化按鈕樣式
+-- 最小化按鈕樣式
 local Minimize = Instance.new("TextButton", Frame)
 Minimize.Size = UDim2.new(0, 35, 0, 35)
 Minimize.Position = UDim2.new(1, -80, 0, 8)
@@ -129,7 +128,7 @@ minimizeGradient.Color = ColorSequence.new{
 
 Instance.new("UICorner", Minimize).CornerRadius = UDim.new(0, 8)
 
--- 修正：側邊欄為可滾動
+-- 側邊欄為可滾動
 local SideBar = Instance.new("ScrollingFrame", Frame)
 SideBar.Size = UDim2.new(0, 130, 1, -55)
 SideBar.Position = UDim2.new(0, 5, 0, 50)
@@ -154,7 +153,7 @@ local sidebarLayout = Instance.new("UIListLayout", SideBar)
 sidebarLayout.Padding = UDim.new(0, 8)
 sidebarLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
--- 修正：內容區域
+-- 內容區域
 local Content = Instance.new("Frame", Frame)
 Content.Size = UDim2.new(1, -145, 1, -55)
 Content.Position = UDim2.new(0, 140, 0, 50)
@@ -169,7 +168,7 @@ contentGradient.Color = ColorSequence.new{
 
 Instance.new("UICorner", Content).CornerRadius = UDim.new(0, 10)
 
--- 修正：縮小功能的尺寸
+-- 縮小功能的尺寸
 local isMinimized = false
 local fullSize = UDim2.new(0, 450, 0, 350)
 local miniSize = UDim2.new(0, 450, 0, 50)
@@ -181,35 +180,27 @@ Minimize.MouseButton1Click:Connect(function()
     Frame.Size = isMinimized and miniSize or fullSize
 end)
 
--- 修正：簡單高亮文字的分區按鈕樣式
+-- 簡單高亮文字的分區按鈕樣式
 local function createSectionButton(text, order, parent)
     local btn = Instance.new("TextButton", parent)
     btn.Size = UDim2.new(0, 120, 0, 45)
     btn.Text = text
-    btn.BackgroundColor3 = Color3.fromRGB(85, 85, 105)  -- 比原本更亮的背景
-    
-    -- 最亮的文字設定
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)  -- 純白色
-    btn.TextTransparency = 0  -- 完全不透明
-    btn.Font = Enum.Font.GothamBold  -- 粗體字
-    btn.TextSize = 16  -- 適中大小
+    btn.BackgroundColor3 = Color3.fromRGB(85, 85, 105)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextTransparency = 0
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 16
     btn.BorderSizePixel = 0
     
-    -- 移除漸層，使用純色背景
-    -- 這樣文字會更清楚
-    
-    -- 添加圓角
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
     
-    -- 簡化描邊
     local btnStroke = Instance.new("UIStroke", btn)
     btnStroke.Color = Color3.fromRGB(150, 180, 255)
     btnStroke.Thickness = 1
     btnStroke.Transparency = 0.6
     
-    -- 簡單hover效果
     btn.MouseEnter:Connect(function()
-        btn.BackgroundColor3 = Color3.fromRGB(105, 105, 125)  -- hover時更亮
+        btn.BackgroundColor3 = Color3.fromRGB(105, 105, 125)
         btnStroke.Transparency = 0.3
     end)
     
@@ -221,48 +212,39 @@ local function createSectionButton(text, order, parent)
     return btn
 end
 
-
--- 修正：簡單高亮文字的一般按鈕樣式
+-- 簡單高亮文字的一般按鈕樣式
 local function createButton(text, order, parent, spacing)
     local btn = Instance.new("TextButton", parent)
     btn.Size = UDim2.new(0, 180, 0, 35)
     btn.Position = UDim2.new(0.5, -90, 0, 10 + (order - 1) * spacing)
     btn.Text = text
-    btn.BackgroundColor3 = Color3.fromRGB(80, 140, 220)  -- 比原本更亮的背景
-    
-    -- 最亮的文字設定
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)  -- 純白色
-    btn.TextSize = 16  -- 適中大小
-    btn.Font = Enum.Font.GothamBold  -- 粗體字
+    btn.BackgroundColor3 = Color3.fromRGB(80, 140, 220)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 16
+    btn.Font = Enum.Font.GothamBold
     btn.BorderSizePixel = 0
     
-    -- 移除漸層，使用純色背景讓文字更清楚
-    
-    -- 添加圓角
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
     
-    -- 簡化描邊
     local btnStroke = Instance.new("UIStroke", btn)
     btnStroke.Color = Color3.fromRGB(120, 170, 255)
     btnStroke.Thickness = 1
     btnStroke.Transparency = 0.6
     
-    -- 簡單hover效果
     btn.MouseEnter:Connect(function()
-        btn.BackgroundColor3 = Color3.fromRGB(100, 160, 240)  -- hover時更亮
-        btn.TextColor3 = Color3.fromRGB(255, 255, 255)  -- 保持純白
+        btn.BackgroundColor3 = Color3.fromRGB(100, 160, 240)
+        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
         btnStroke.Transparency = 0.3
     end)
     
     btn.MouseLeave:Connect(function()
         btn.BackgroundColor3 = Color3.fromRGB(80, 140, 220)
-        btn.TextColor3 = Color3.fromRGB(255, 255, 255)  -- 保持純白
+        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
         btnStroke.Transparency = 0.6
     end)
     
     return btn
 end
-
 
 -- 添加滾動框樣式改善
 local function styleScrollFrame(scrollFrame)
@@ -279,9 +261,7 @@ local function styleScrollFrame(scrollFrame)
     Instance.new("UICorner", scrollFrame).CornerRadius = UDim.new(0, 8)
 end
 
--- BONK分區腳本 - 添加到現有GUI中
-
--- 在現有的分區按鈕創建後添加BONK分區
+-- BONK分區腳本
 local Section5 = createSectionButton("BONK", 1, SideBar)
 
 -- 創建BONK分區的ScrollingFrame
@@ -295,25 +275,24 @@ bonkSection.AutomaticCanvasSize = Enum.AutomaticSize.Y
 bonkSection.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
 bonkSection.ScrollingDirection = Enum.ScrollingDirection.Y
 
--- 應用滾動框樣式
 styleScrollFrame(bonkSection)
 
 -- BONK功能變數
 local isBonkEnabled = false
 local bonkLoop = nil
-local bonkMode = "普通" -- 預設模式
+local bonkMode = "普通"
 local savedPosition = nil
 local savedCFrame = nil
 local isHelpModeEnabled = false
 local helpModeLoop = nil
-local helpMode = "被打後重置" -- 預設模式
+local helpMode = "被打後重置"
 local playerInput = nil
 local isMovingLocked = false
 
 -- 創建自動使用能力按鈕
 local autoAbilityBtn = createButton("自動使用能力: 關", 1, bonkSection, 50)
 
--- 創建模式下拉選單 (自動使用能力)
+-- 創建模式下拉選單
 local modeDropdown = Instance.new("TextButton", bonkSection)
 modeDropdown.Size = UDim2.new(0, 180, 0, 25)
 modeDropdown.Position = UDim2.new(0.5, -90, 0, 55)
@@ -395,6 +374,7 @@ autoAbilityBtn.MouseButton1Click:Connect(function()
                     if character and character:FindFirstChild("HumanoidRootPart") then
                         local playerPosition = character.HumanoidRootPart.Position
                         local foundPlayer = false
+                        local targetPlayer = nil
                         
                         -- 檢查15單位內是否有其他玩家
                         for _, player in pairs(Players:GetPlayers()) do
@@ -402,6 +382,7 @@ autoAbilityBtn.MouseButton1Click:Connect(function()
                                 local distance = (player.Character.HumanoidRootPart.Position - playerPosition).Magnitude
                                 if distance <= 15 then
                                     foundPlayer = true
+                                    targetPlayer = player
                                     
                                     -- 使用BONK能力
                                     pcall(function()
@@ -525,7 +506,7 @@ noResetOption.MouseButton1Click:Connect(function()
     helpModeOptions.Visible = false
 end)
 
--- 更新後的幫助模式功能
+-- 幫助模式功能
 helpModeBtn.MouseButton1Click:Connect(function()
     isHelpModeEnabled = not isHelpModeEnabled
     helpModeBtn.Text = isHelpModeEnabled and "幫助模式: 開" or "幫助模式: 關"
@@ -578,7 +559,7 @@ helpModeBtn.MouseButton1Click:Connect(function()
                             -- 檢查是否被目標玩家打中
                             local lastSlappedBy = playerWorkspaceFolder:FindFirstChild("LastSlappedBy")
                             if lastSlappedBy and lastSlappedBy.Value == targetName then
-                                task.wait(0.5) -- 等待0.5秒
+                                task.wait(0.5)
                                 
                                 if helpMode == "被打後重置" then
                                     -- 安全傳送到指定坐標
@@ -595,3 +576,113 @@ helpModeBtn.MouseButton1Click:Connect(function()
                                         if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
                                             LocalPlayer.Character.Humanoid:TakeDamage(LocalPlayer.Character.Humanoid.MaxHealth)
                                         end
+                                    end)
+                                    
+                                    -- 等待重置完成和新角色載入
+                                    local resetStartTime = tick()
+                                    repeat
+                                        task.wait(0.2)
+                                        if tick() - resetStartTime > 3 then
+                                            break
+                                        end
+                                    until not LocalPlayer.Character or LocalPlayer.Character.Humanoid.Health <= 0
+                                    
+                                    -- 等待新角色
+                                    local newCharacter = nil
+                                    local waitStartTime = tick()
+                                    repeat
+                                        task.wait(0.2)
+                                        newCharacter = LocalPlayer.Character
+                                        if tick() - waitStartTime > 3 then
+                                            break
+                                        end
+                                    until newCharacter and newCharacter:FindFirstChild("HumanoidRootPart") and 
+                                          newCharacter:FindFirstChild("Humanoid") and newCharacter.Humanoid.Health > 0
+                                    
+                                    -- 傳送到紅門並等待0.5秒
+                                    pcall(function()
+                                        local teleport1 = Workspace.Lobby:FindFirstChild("Teleport1")
+                                        if teleport1 and newCharacter and newCharacter:FindFirstChild("HumanoidRootPart") then
+                                            newCharacter.HumanoidRootPart.CFrame = teleport1.CFrame
+                                            task.wait(0.5)
+                                        end
+                                    end)
+                                    
+                                    -- 移動到目標玩家面向方向5單位
+                                    pcall(function()
+                                        if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") and 
+                                           newCharacter and newCharacter:FindFirstChild("HumanoidRootPart") then
+                                            local targetRoot = targetPlayer.Character.HumanoidRootPart
+                                            local targetLookDirection = targetRoot.CFrame.LookVector
+                                            local newPos = targetRoot.Position + (targetLookDirection * 5) + Vector3.new(0, 2, 0)
+                                            newCharacter.HumanoidRootPart.CFrame = CFrame.new(newPos, newPos + targetLookDirection)
+                                        end
+                                    end)
+                                    
+                                    task.wait(0.3)
+                                    break
+                                else
+                                    -- 不重置模式 - 每0.5秒移動到目標玩家前方5單位
+                                    isMovingLocked = true
+                                    
+                                    -- 持續跟隨目標玩家直到功能關閉
+                                    while isHelpModeEnabled and isMovingLocked do
+                                        pcall(function()
+                                            if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                                local targetRoot = targetPlayer.Character.HumanoidRootPart
+                                                local targetPos = targetRoot.Position
+                                                local targetLookDirection = targetRoot.CFrame.LookVector
+                                                
+                                                local newPos = targetPos + (targetLookDirection * 5) + Vector3.new(0, 2, 0)
+                                                
+                                                if humanoidRootPart and humanoidRootPart.Parent then
+                                                    humanoidRootPart.CFrame = CFrame.new(newPos, newPos + targetLookDirection)
+                                                end
+                                            end
+                                        end)
+                                        task.wait(0.5)
+                                    end
+                                    break
+                                end
+                            end
+                            
+                            local currentTime = tick()
+                            if currentTime - lastUpdateTime < 0.2 then
+                                task.wait(0.1)
+                                continue
+                            end
+                            lastUpdateTime = currentTime
+                            
+                            if not (targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+                                break
+                            end
+                            
+                            -- 持續移動到目標前方
+                            pcall(function()
+                                local targetRoot = targetPlayer.Character.HumanoidRootPart
+                                local targetPos = targetRoot.Position
+                                local targetLookDirection = targetRoot.CFrame.LookVector
+                                
+                                local newPos = targetPos + (targetLookDirection * 5) + Vector3.new(0, 0, 0)
+                                
+                                if (humanoidRootPart.Position - newPos).Magnitude > 1 then
+                                    humanoidRootPart.CFrame = CFrame.new(newPos, newPos + targetLookDirection)
+                                end
+                            end)
+                            
+                            task.wait(0.1)
+                        end
+                    end
+                end)
+                
+                if isHelpModeEnabled then
+                    task.wait(1)
+                end
+            end
+        end)
+    elseif helpModeLoop then
+        task.cancel(helpModeLoop)
+        helpModeLoop = nil
+        isMovingLocked = false -- 解除位置鎖定
+    end
+end)
